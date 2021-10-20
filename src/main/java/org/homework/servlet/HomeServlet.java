@@ -1,14 +1,14 @@
 package org.homework.servlet;
 
 import lombok.SneakyThrows;
+import org.homework.model.*;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/"})
+@WebServlet(urlPatterns = {"/all/*"})
 public class HomeServlet extends HttpServlet {
 
     private static HomeServlet homeServlet;
@@ -23,8 +23,21 @@ public class HomeServlet extends HttpServlet {
     @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/view/homeView.jsp");
-        dispatcher.forward(req, resp);
+        if (req.getRequestURI().equalsIgnoreCase("/all/skill/")) {
+            new CrudViewImpl<>(Skill.class).doGet(req, resp);
+        }
+        if (req.getRequestURI().equalsIgnoreCase("/all/company/")) {
+            new CrudViewImpl<>(Company.class).doGet(req, resp);
+        }
+        if (req.getRequestURI().equalsIgnoreCase("/all/customer/")) {
+            new CrudViewImpl<>(Customer.class).doGet(req, resp);
+        }
+        if (req.getRequestURI().equalsIgnoreCase("/all/project/")) {
+            new CrudViewImpl<>(Project.class).doGet(req, resp);
+        }
+        if (req.getRequestURI().equalsIgnoreCase("/all/developer/")) {
+            new CrudViewImpl<>(Developer.class).doGet(req, resp);
+        }
     }
 
     @Override

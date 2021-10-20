@@ -4,50 +4,27 @@ import org.homework.model.Project;
 import org.homework.repository.ProjectCrudRepository;
 import org.homework.repository.ProjectCrudRepositoryImpl;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
-public class ProjectServiceImpl implements ProjectService, Serializable {
+public class ProjectServiceImpl extends CrudServiceImpl<Project,Long> implements ProjectService {
 
-    private final ProjectCrudRepository CRUD_REPOSITORY = ProjectCrudRepositoryImpl.getProjectCrudRepository();
+    private final ProjectCrudRepository CRUD_REPOSITORY;
     private static ProjectServiceImpl projectService;
 
+    private ProjectServiceImpl(Class<Project> modelClass) {
+        super(modelClass);
+        this.CRUD_REPOSITORY = ProjectCrudRepositoryImpl.getDeveloperService();
+    }
+
     public static ProjectServiceImpl getProjectService() {
-        System.out.println("ProjectServiceImpl");
         if (projectService == null) {
             synchronized (ProjectServiceImpl.class) {
                 if (projectService == null) {
-                    projectService = new ProjectServiceImpl();
+                    projectService = new ProjectServiceImpl(Project.class);
                 }
             }
         }
         return projectService;
-    }
-
-    @Override
-    public Project create(Project e) {
-        return CRUD_REPOSITORY.create(e);
-    }
-
-    @Override
-    public Project update(Project e) {
-        return CRUD_REPOSITORY.update(e);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        CRUD_REPOSITORY.deleteById(id);
-    }
-
-    @Override
-    public Optional<Project> findById(Long id) {
-        return CRUD_REPOSITORY.findById(id);
-    }
-
-    @Override
-    public List<Project> findAll() {
-        return CRUD_REPOSITORY.findAll();
     }
 
     @Override

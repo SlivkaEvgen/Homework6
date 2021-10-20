@@ -28,7 +28,7 @@ public class Project implements BaseModel<Long> {
     private Long cost;
 
     @Column(name = "first_date", nullable = false, length = 50)
-    private String firstDate = new Date().toString();//"2021-10-09/21:52:13"
+    private String firstDate = new Date().toString();
 
     @Column(name = "company_id", nullable = false, length = 10)
     private Long companyId;

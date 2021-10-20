@@ -35,7 +35,7 @@ public class SumSalariesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         String projectId = req.getParameter("projectId");
-        if (Validator.validNumber(String.valueOf(projectId))) {
+        if (Validator.validNumber(projectId)) {
             req.setAttribute("sumSalaries", service.getSumSalariesDevelopersOfOneProject(Long.valueOf(projectId)));
             req.getServletContext().getRequestDispatcher("/WEB-INF/view/developer/sumSalariesView.jsp")
                     .forward(req, resp);

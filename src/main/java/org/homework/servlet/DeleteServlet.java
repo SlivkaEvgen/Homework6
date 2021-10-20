@@ -3,11 +3,12 @@ package org.homework.servlet;
 import org.homework.model.*;
 
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = {"/delete/*"})
-public class DeleteServlet extends HomeServlet {
+public class DeleteServlet extends HttpServlet {
 
     private final CrudView<Skill, Long> deleteView = new CrudViewImpl<>(Skill.class);
     private final CrudView<Project, Long> deleteViewPro = new CrudViewImpl<>(Project.class);
@@ -25,7 +26,6 @@ public class DeleteServlet extends HomeServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-
         if (req.getRequestURI().equalsIgnoreCase("/delete/skill")) {
             deleteView.delete(req, resp);
         }

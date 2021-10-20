@@ -5,7 +5,7 @@ import org.homework.model.BaseModel;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class RepositoryFactory {
+public class RepositoryFactory<T extends BaseModel<ID>,ID> {
 
     private final static Map<String, CrudRepository> REPOSITORIES = new ConcurrentHashMap<>();
 

@@ -37,15 +37,10 @@ public class FromOneProject extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         String projectId = req.getParameter("id");
         if (Validator.validId(projectId)) {
-            if (ProjectServiceImpl.getProjectService().findById(Long.valueOf(projectId)).isPresent()) {
-                req.setAttribute("list", service.getDevelopersFromOneProject(Long.valueOf(projectId)));
-                req.getServletContext().getRequestDispatcher("/WEB-INF/view/developer/developersFromOneProject.jsp")
-                        .forward(req, resp);
-                resp.sendRedirect(req.getContextPath() + "/fromOneProject/");
-            } else {
-                req.setAttribute("error", "Not found Project by ID = " + projectId);
-                doGet(req, resp);
-            }
+            req.setAttribute("list", service.getDevelopersFromOneProject(Long.valueOf(projectId)));
+            req.getServletContext().getRequestDispatcher("/WEB-INF/view/developer/developersFromOneProject.jsp")
+                    .forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/fromOneProject/");
         } else {
             req.setAttribute("error", "Not found Project by ID = " + projectId);
             doGet(req, resp);

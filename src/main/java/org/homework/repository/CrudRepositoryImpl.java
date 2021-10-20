@@ -29,7 +29,6 @@ class CrudRepositoryImpl<T extends BaseModel<ID>, ID> implements Closeable, Seri
     private final ObjectMapper mapper;
     private final Class<T> modelClass;
     private final Map<String, String> columnFieldName;
-    private final String databaseSchemaName;
     private final PreparedStatement findAllPreparedStatement;
     private final PreparedStatement findByIDPreparedStatement;
     private final PreparedStatement deletePreparedStatement;
@@ -38,10 +37,8 @@ class CrudRepositoryImpl<T extends BaseModel<ID>, ID> implements Closeable, Seri
 
     @SneakyThrows
     public CrudRepositoryImpl(Class<T> modelClass) {
-        System.out.println("CrudRepositoryImpl");
-
         this.connection = DatabaseConnection.getInstance().getConnection();
-        this.databaseSchemaName = PropertiesLoader.getProperties("db.schemaName");
+        String databaseSchemaName = PropertiesLoader.getProperties("db.schemaName");
 
         this.mapper = new ObjectMapper();
 
