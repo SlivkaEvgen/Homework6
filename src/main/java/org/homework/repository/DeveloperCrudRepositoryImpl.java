@@ -2,7 +2,6 @@ package org.homework.repository;
 
 import lombok.SneakyThrows;
 import org.homework.model.Developer;
-import org.homework.service.DeveloperServiceImpl;
 import org.homework.util.DatabaseConnection;
 
 import java.io.Serializable;
@@ -12,7 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeveloperCrudRepositoryImpl extends CrudRepositoryImpl<Developer,Long> implements Serializable, DeveloperCrudRepository {
+public class DeveloperCrudRepositoryImpl extends CrudRepositoryImpl<Developer, Long> implements Serializable, DeveloperCrudRepository {
 
     private static final long serialVersionUID = 10000000024L;
     private final Connection CONNECTION;
@@ -37,9 +36,9 @@ public class DeveloperCrudRepositoryImpl extends CrudRepositoryImpl<Developer,Lo
 
     @SneakyThrows
     @Override
-     public Object getSumSalariesDevelopersOfOneProject(Long projectId) {
-       StringBuilder stringBuilder;
-        stringBuilder  = new StringBuilder(" Not found  Project by ID = " + projectId);
+    public Object getSumSalariesDevelopersOfOneProject(Long projectId) {
+        StringBuilder stringBuilder;
+        stringBuilder = new StringBuilder(" Not found  Project by ID = " + projectId);
         try (ResultSet resultSet = CONNECTION.createStatement().executeQuery(
                 "SELECT projects.id AS projectID, projects.name AS projectName, SUM(developers.salary) AS sumSalaries FROM developers_projects " +
                         "inner join developers on developers_projects.developer_id = developers.id " +
@@ -58,13 +57,13 @@ public class DeveloperCrudRepositoryImpl extends CrudRepositoryImpl<Developer,Lo
 
     @SneakyThrows
     @Override
-     public List<Developer> getDevelopersFromOneProject(Long projectId) {
+    public List<Developer> getDevelopersFromOneProject(Long projectId) {
         List<Developer> developersList = new ArrayList<>();
         PreparedStatement preparedStatement = CONNECTION.prepareStatement(
                 "SELECT * FROM developers_projects "
-                + "inner join developers on developers_projects.developer_id = developers.id "
-                + "inner join projects on developers_projects.project_id = projects.id "
-                + "WHERE projects.id="+projectId);
+                        + "inner join developers on developers_projects.developer_id = developers.id "
+                        + "inner join projects on developers_projects.project_id = projects.id "
+                        + "WHERE projects.id=" + projectId);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             developersList.add(buildDeveloper(resultSet));
@@ -74,7 +73,7 @@ public class DeveloperCrudRepositoryImpl extends CrudRepositoryImpl<Developer,Lo
 
     @SneakyThrows
     @Override
-     public List<Developer> getDevelopersByActivity(String nameActivity) {
+    public List<Developer> getDevelopersByActivity(String nameActivity) {
         final List<Developer> developersList = new ArrayList<>();
         PreparedStatement preparedStatement = CONNECTION.prepareStatement("SELECT * FROM developers_skills "
                 + "inner join developers on developers_skills.developer_id = developers.id "
@@ -90,7 +89,7 @@ public class DeveloperCrudRepositoryImpl extends CrudRepositoryImpl<Developer,Lo
 
     @SneakyThrows
     @Override
-     public List<Developer> getDevelopersByLevel(String nameLevel) {
+    public List<Developer> getDevelopersByLevel(String nameLevel) {
         final List<Developer> developersList = new ArrayList<>();
         PreparedStatement preparedStatement = CONNECTION.prepareStatement("SELECT * FROM developers_skills "
                 + "inner join developers on developers_skills.developer_id = developers.id "
@@ -103,31 +102,6 @@ public class DeveloperCrudRepositoryImpl extends CrudRepositoryImpl<Developer,Lo
         }
         return developersList;
     }
-
-//    @Override
-//    public Developer create(Developer e) {
-//        return CRUD_REPOSITORY_JDBC.create(e);
-//    }
-//
-//    @Override
-//    public Developer update(Developer e) {
-//        return CRUD_REPOSITORY_JDBC.update(e);
-//    }
-//
-//    @Override
-//    public void deleteById(Long id) {
-//        CRUD_REPOSITORY_JDBC.deleteById(id);
-//    }
-//
-//    @Override
-//    public Optional<Developer> findById(Long id) {
-//        return CRUD_REPOSITORY_JDBC.findById(id);
-//    }
-//
-//    @Override
-//    public List<Developer> findAll() {
-//        return CRUD_REPOSITORY_JDBC.findAll();
-//    }
 
     @SneakyThrows
     private Developer buildDeveloper(ResultSet resultSet) {

@@ -70,7 +70,7 @@ public class Validator<T extends BaseModel<ID>, ID> {
     }
 
     public static boolean validGender(String gender) {
-        return !(gender.equalsIgnoreCase("Male")
+        return (gender.equalsIgnoreCase("Male")
                 |gender.equalsIgnoreCase("Female"));
     }
 

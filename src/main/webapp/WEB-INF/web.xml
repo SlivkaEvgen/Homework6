@@ -9,12 +9,4 @@
   <welcome-file-list>
     <welcome-file>/WEB-INF/view/_menu.jsp</welcome-file>
   </welcome-file-list>
-<!--  <servlet>-->
-<!--    <servlet-name>SkillListServlet</servlet-name>-->
-<!--    <servlet-class>org.homework.servletControllerController.skill.SkillListServlet</servlet-class>-->
-<!--  </servlet>-->
-<!--  <servlet-mapping>-->
-<!--    <servlet-name>SkillListServlet</servlet-name>-->
-<!--    <url-pattern>/skillList</url-pattern>-->
-<!--  </servlet-mapping>-->
 </web-app>

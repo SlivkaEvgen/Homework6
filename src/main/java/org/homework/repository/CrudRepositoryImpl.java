@@ -45,8 +45,8 @@ class CrudRepositoryImpl<T extends BaseModel<ID>, ID> implements Closeable, Seri
         this.modelClass = modelClass;//(Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         this.columnFieldName = Arrays.stream(this.modelClass.getDeclaredFields())
                 .filter(field -> !Modifier.isStatic(field.getModifiers()))
-                .collect(Collectors.toMap(field -> getColumnName(field), field -> field.getName()));
-        String generatedColumns[] = {getColumnName(Arrays.stream(this.modelClass.getDeclaredFields())
+                .collect(Collectors.toMap(this::getColumnName, Field::getName));
+        String[] generatedColumns = {getColumnName(Arrays.stream(this.modelClass.getDeclaredFields())
                 .filter(field -> !Modifier.isStatic(field.getModifiers()))
                 .filter(field -> field.getAnnotation(Id.class) != null)
                 .findAny().orElseThrow(() -> new RuntimeException("Entity must contains ID")))};
